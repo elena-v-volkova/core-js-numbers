@@ -105,8 +105,13 @@ function getLinearEquationRoot(a, b) {
  *   (0,-1) (1,0)    => π/2
  *   (0,1) (0,1)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const dotProduct = x1 * x2 + y1 * y2;
+  const moduleFirst = Math.hypot(x1) + Math.hypot(y1);
+  const moduleSecond = Math.hypot(x2) + Math.hypot(y2);
+  const cos = dotProduct / (moduleFirst * moduleSecond);
+
+  return Math.acos(cos);
 }
 
 /**
@@ -122,8 +127,8 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     5     => 5
  *     0     => 0
  */
-function getLastDigit(/* value */) {
-  throw new Error('Not implemented');
+function getLastDigit(value) {
+  return value % 10;
 }
 
 /**
@@ -175,8 +180,9 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const powNumber = 10 ** pow;
+  return Math.round(num / powNumber) * powNumber;
 }
 
 /**
@@ -196,10 +202,18 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
-}
+function isPrime(n) {
+  if (n <= 1) return false;
 
+  const maxDivisor = Math.sqrt(n);
+
+  for (let i = 2; i <= maxDivisor; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
+}
 /**
  * Tries to convert value to number and returns it if conversion was successful;
  * otherwise returns default value passed as a second argument.
